@@ -29,6 +29,27 @@ USERS = [
     },
 ]
 
+PROJECTS = [
+    {
+        "_id": 1,
+        "name": "Bug Tracker App",
+        "bugs": [1, 2, 3],
+        "assigned_devs": [1, 2, 3]
+    },
+    {
+        "_id": 1,
+        "name": "Portfolio Site",
+        "bugs": [4, 5, 6],
+        "assigned_devs": [1, 2, 3, 4]
+    },
+    {
+        "_id": 1,
+        "name": "Actor Website",
+        "bugs": [7, 8, 9],
+        "assigned_devs": [1, 3, 4]
+    },
+]
+
 @app.route("/")
 def hello_world():
     return "<p>Hello, Nate!</p>"
@@ -36,6 +57,10 @@ def hello_world():
 @app.route("/api/users")
 def get_users():
     return jsonify(USERS)
+
+@app.route("/api/projects")
+def get_projects():
+    return jsonify(PROJECTS)
 
 # a good way to run program via python command rather than flask run command
 if(__name__ == "__main__"):
