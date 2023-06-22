@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from dotenv import load_dotenv
 load_dotenv()
 import os
@@ -14,3 +14,12 @@ engine = create_engine(
         }
     }
 )
+
+def load_users_from_db():
+    with engine.connect() as conn:
+        result = conn.execute(text("SELECT * FROM users"))
+
+        users = []
+        for row in result.all():
+            users.append((dict(row._mapping)))
+        return users

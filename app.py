@@ -1,6 +1,5 @@
 from flask import Flask, jsonify
-from database import engine
-from sqlalchemy import text
+from database import load_users_from_db
 
 app = Flask(__name__)
 
@@ -25,14 +24,6 @@ PROJECTS = [
     },
 ]
 
-def load_users_from_db():
-    with engine.connect() as conn:
-        result = conn.execute(text("SELECT * FROM users"))
-
-        users = []
-        for row in result.all():
-            users.append((dict(row._mapping)))
-        return users
 
 @app.route("/")
 def hello_world():
