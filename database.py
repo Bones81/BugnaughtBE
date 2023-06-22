@@ -10,7 +10,7 @@ engine = create_engine(
     db_conn_string, 
     connect_args={
         "ssl": {
-            "ca": "/etc/ssl/cert.pem"
+            "ssl_ca": "/etc/ssl/cert.pem"
         }
     }
 )
