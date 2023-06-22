@@ -4,14 +4,13 @@ load_dotenv()
 import os
 
 # engine creation: format of connection string-- "mysql+pymysql://<username>:<password>@<hostname>/<db_name>?charset=utf8mb4"
-db_conn_string = f"mysql+pymysql://{os.getenv('USERNAME')}:{os.getenv('PASSWORD')}@{os.getenv('HOST')}/{os.getenv('DATABASE')}?charset=utf8mb4"
+db_conn_string = f"mysql+pymysql://{os.getenv('USERNAME')}:{os.getenv('PASSWORD')}@{os.getenv('HOST')}/{os.getenv('DATABASE')}?charset=utf8mb4&ssl=true"
 
 engine = create_engine(
     db_conn_string, 
     connect_args={
         "ssl": {
-            "ca": "/etc/ssl/cert.pem",
-            "ssl_check_hostname": False
+            "ca": "/etc/ssl/cert.pem"
         }
     }
 )
