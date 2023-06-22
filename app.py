@@ -1,33 +1,8 @@
 from flask import Flask, jsonify
+from database import engine
+from sqlalchemy import text
 
 app = Flask(__name__)
-
-USERS = [
-    {
-        "_id": 1,
-        "first_name": "Nathan",
-        "last_name": "Freeman",
-        "roles": ["admin","developer","manager","lead"]
-    },
-    {
-        "_id": 2,
-        "first_name": "Sujan",
-        "last_name": "Trivedi",
-        "roles": ["developer","manager","lead"]
-    },
-    {
-        "_id": 3,
-        "first_name": "Jeff",
-        "last_name": "Kitrosser",
-        "roles": ["developer","manager"]
-    },
-    {
-        "_id": 4,
-        "first_name": "Olivia",
-        "last_name": "Wills",
-        "roles": ["developer"]
-    },
-]
 
 PROJECTS = [
     {
@@ -50,13 +25,23 @@ PROJECTS = [
     },
 ]
 
+def load_users_from_db():
+    with engine.connect() as conn:
+        result = conn.execute(text("SELECT * FROM users"))
+
+        users = []
+        for row in result.all():
+            users.append((dict(row._mapping)))
+        return users
+
 @app.route("/")
 def hello_world():
     return "<p>Hello, Nate!</p>"
 
 @app.route("/api/users")
 def get_users():
-    return jsonify(USERS)
+    users = load_users_from_db()
+    return jsonify(users)
 
 @app.route("/api/projects")
 def get_projects():
