@@ -23,3 +23,12 @@ def load_users_from_db():
         for row in result.all():
             users.append((dict(row._mapping)))
         return users
+    
+def load_projects_from_db():
+    with engine.connect() as conn:
+        result = conn.execute(text("SELECT * FROM projects"))
+
+        projects = []
+        for row in result.all():
+            projects.append((dict(row._mapping)))
+        return projects

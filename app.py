@@ -1,28 +1,28 @@
 from flask import Flask, jsonify
-from database import load_users_from_db
+from database import load_users_from_db, load_projects_from_db
 
 app = Flask(__name__)
 
-PROJECTS = [
-    {
-        "_id": 1,
-        "name": "Bug Tracker App",
-        "bugs": [1, 2, 3],
-        "assigned_devs": [1, 2, 3]
-    },
-    {
-        "_id": 1,
-        "name": "Portfolio Site",
-        "bugs": [4, 5, 6],
-        "assigned_devs": [1, 2, 3, 4]
-    },
-    {
-        "_id": 1,
-        "name": "Actor Website",
-        "bugs": [7, 8, 9],
-        "assigned_devs": [1, 3, 4]
-    },
-]
+# PROJECTS = [
+#     {
+#         "_id": 1,
+#         "name": "Bug Tracker App",
+#         "bugs": [1, 2, 3],
+#         "assigned_devs": [1, 2, 3]
+#     },
+#     {
+#         "_id": 2,
+#         "name": "Portfolio Site",
+#         "bugs": [4, 5, 6],
+#         "assigned_devs": [1, 2, 3, 4]
+#     },
+#     {
+#         "_id": 3,
+#         "name": "Actor Website",
+#         "bugs": [7, 8, 9],
+#         "assigned_devs": [1, 3, 4]
+#     },
+# ]
 
 
 @app.route("/")
@@ -36,7 +36,8 @@ def get_users():
 
 @app.route("/api/projects")
 def get_projects():
-    return jsonify(PROJECTS)
+    projects = load_projects_from_db()
+    return jsonify(projects)
 
 # a good way to run program via python command rather than flask run command
 if(__name__ == "__main__"):
