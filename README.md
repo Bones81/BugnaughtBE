@@ -4,7 +4,7 @@ Python/Flask backend for Bugnaught project
 
 ## MySQL data storage
 
-This app stores data with MySQL hosted on PlanetScale. It is my first foray into MySQL, and I have discovered it has its quirks. 
+This app stores data with MySQL hosted on PlanetScale. It is my first foray into MySQL, and I have discovered it has its quirks.
 
 ## API Routes
 
