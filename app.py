@@ -1,7 +1,9 @@
 from flask import Flask, jsonify
+from flask_cors import CORS
 from database import load_users_from_db, load_projects_from_db
 
 app = Flask(__name__)
+CORS(app)
 
 # PROJECTS = [
 #     {
