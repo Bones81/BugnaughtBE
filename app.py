@@ -1,6 +1,6 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
-from database import load_users_from_db, load_projects_from_db
+from database import load_users_from_db, load_projects_from_db, load_bugs_from_db, load_comments_from_db
 
 app = Flask(__name__)
 CORS(app)
@@ -40,6 +40,16 @@ def get_users():
 def get_projects():
     projects = load_projects_from_db()
     return jsonify(projects)
+
+@app.route("/api/bugs")
+def get_bugs():
+    bugs = load_bugs_from_db()
+    return jsonify(bugs)
+
+@app.route("/api/comments")
+def get_comments():
+    comments = load_comments_from_db()
+    return jsonify(comments)
 
 # a good way to run program via python command rather than flask run command
 if(__name__ == "__main__"):

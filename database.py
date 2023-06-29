@@ -32,3 +32,21 @@ def load_projects_from_db():
         for row in result.all():
             projects.append((dict(row._mapping)))
         return projects
+    
+def load_bugs_from_db():
+    with engine.connect() as conn:
+        result = conn.execute(text("SELECT * FROM bugs"))
+
+        bugs = []
+        for row in result.all():
+            bugs.append((dict(row._mapping)))
+        return bugs
+
+def load_comments_from_db():
+    with engine.connect() as conn:
+        result = conn.execute(text("SELECT * FROM comments"))
+
+        comments = []
+        for row in result.all():
+            comments.append((dict(row._mapping)))
+        return comments
