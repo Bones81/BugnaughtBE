@@ -26,14 +26,11 @@ def load_users_from_db():
         return users
     
 def load_single_user(user_id):
-    try: 
-        with engine.connect() as conn:
-            result = conn.execute(text(f"SELECT * FROM users WHERE id = {user_id}"))
-            row = result.all()[0]
-            user_dict = dict(row._mapping)
-            return user_dict
-    except Exception as e:
-        return str(e)
+    with engine.connect() as conn:
+        result = conn.execute(text(f"SELECT * FROM users WHERE id = {user_id}"))
+        row = result.all()[0]
+        user_dict = dict(row._mapping)
+        return user_dict
 
 # PROJECT functions
 def load_projects_from_db():

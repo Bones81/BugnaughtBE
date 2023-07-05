@@ -41,11 +41,7 @@ def get_users():
 @app.route("/api/users/<id>")
 def get_user(id):
     user = load_single_user(id)
-    print(type(user))
-    if(type(user) == str):
-        return render_template('error.html', error="Unable to find a user with this ID.")
-    else:
-        return jsonify(user)
+    return jsonify(user)
 
 @app.route("/api/projects")
 def get_projects():
