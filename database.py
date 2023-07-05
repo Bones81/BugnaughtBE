@@ -15,6 +15,7 @@ engine = create_engine(
     }
 )
 
+# USER functions
 def load_users_from_db():
     with engine.connect() as conn:
         result = conn.execute(text("SELECT * FROM users"))
@@ -24,6 +25,17 @@ def load_users_from_db():
             users.append((dict(row._mapping)))
         return users
     
+def load_single_user(user_id):
+    try: 
+        with engine.connect() as conn:
+            result = conn.execute(text(f"SELECT * FROM users WHERE id = {user_id}"))
+            row = result.all()[0]
+            user_dict = dict(row._mapping)
+            return user_dict
+    except Exception as e:
+        return str(e)
+
+# PROJECT functions
 def load_projects_from_db():
     with engine.connect() as conn:
         result = conn.execute(text("SELECT * FROM projects"))
@@ -32,7 +44,8 @@ def load_projects_from_db():
         for row in result.all():
             projects.append((dict(row._mapping)))
         return projects
-    
+
+# BUG functions
 def load_bugs_from_db():
     with engine.connect() as conn:
         result = conn.execute(text("SELECT * FROM bugs"))
@@ -42,6 +55,7 @@ def load_bugs_from_db():
             bugs.append((dict(row._mapping)))
         return bugs
 
+# COMMENT functions
 def load_comments_from_db():
     with engine.connect() as conn:
         result = conn.execute(text("SELECT * FROM comments"))

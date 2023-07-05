@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, render_template
 from flask_cors import CORS
-from database import load_users_from_db, load_projects_from_db, load_bugs_from_db, load_comments_from_db
+from database import load_users_from_db, load_projects_from_db, load_bugs_from_db, load_comments_from_db, load_single_user
 
 app = Flask(__name__)
 CORS(app)
@@ -37,6 +37,15 @@ def hello_world():
 def get_users():
     users = load_users_from_db()
     return jsonify(users)
+
+@app.route("/api/users/<id>")
+def get_user(id):
+    user = load_single_user(id)
+    print(type(user))
+    if(type(user) == str):
+        return render_template('error.html', error="Unable to find a user with this ID.")
+    else:
+        return jsonify(user)
 
 @app.route("/api/projects")
 def get_projects():
