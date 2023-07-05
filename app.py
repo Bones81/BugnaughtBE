@@ -1,9 +1,11 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 from flask_cors import CORS
 from database import load_users_from_db, load_projects_from_db, load_bugs_from_db, load_comments_from_db
 
 app = Flask(__name__)
 CORS(app)
+
+API_URL = 'https://bugnaughtbe.onrender.com/api/'
 
 # PROJECTS = [
 #     {
@@ -29,7 +31,7 @@ CORS(app)
 
 @app.route("/")
 def hello_world():
-    return "<p>Hello, Nate!</p>"
+    return render_template('index.html', API_URL=API_URL)
 
 @app.route("/api/users")
 def get_users():
